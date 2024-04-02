@@ -16,7 +16,7 @@ def fn_question_int(question, erreur):
         reponse = input(question)
     return reponse
 
-def fn_question_train_code(question, erreur):
+def fn_question_nom(question, erreur):
     reponse = input(question).upper()
     pattern = re.compile(r'^[A-Z]{2}\d{4}$')
     while not bool(pattern.match(reponse)):
@@ -35,7 +35,7 @@ def fn_get_db_name():
 def fn_get_sql_script():
     file_path = os.path.realpath(__file__)
     work_dir = os.path.dirname(file_path)
-    sql_init_script = f'{work_dir}/sql-scripts/init-horaire-train.sql'
+    sql_init_script = f'{work_dir}/sql-scripts/init-mitsu.sql'
     return sql_init_script
 
 def fn_init_db(db_name, sql_init_script):
@@ -247,7 +247,7 @@ def fn_delete_db(self):
             print("The SQLite connection is closed")
             
 def fn_init_delete_train_code_menu():
-    q_choix_1 = "[1] Supprimer un train"
+    q_choix_1 = "[1] Supprimer un compte"
     q_choix_2 = "[2] Quitter" 
     list_menu = [q_choix_1, q_choix_2]
     return list_menu
@@ -255,7 +255,7 @@ def fn_init_delete_train_code_menu():
 def fn_delete_db():
     try:
         list_menu = fn_init_delete_train_code_menu()
-        create_db_out = fn_delete_train_code_menu(list_menu)            
+        create_db_out = fn_delete (list_menu)            
     except Exception as error:
         print(f"{error}")
     finally:

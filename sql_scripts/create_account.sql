@@ -1,1 +1,0 @@
-INSERT INTO PEOPLE (code) VALUES ('Nom','Prenom','Password');
