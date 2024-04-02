@@ -4,27 +4,51 @@
     <title>Mitsu_projet</title>
 </head>
 
-<body>
-    <a>
-        <img src=""/>
-    </a>
-
-    <h1>Encodez vos données</h1>
-    <form method="POST" action="{{ url_for('submit') }}">
-        <div>
-            <label for="username">Username :</label>
-                <input type="username" id="username" name="username" required>
-        </div>
-        <div>
-            <label for="password">Password :</label>
-	            <input type="password" id="password" name="password" required>
-        </div>
-	    <button type="submit">Encoder</button>
-    </form> 
-
-</body>
-</html>
-
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mx-auto mt-20">
+         <h1>{% block title %}Encoder vos données{% endblock %}</h1>
+         <form method="post">  
+            <div>
+                <label for="nom">Nom :</label>
+                <input class="border rounded py-2 px-3 text-gray-700" type="nom" id="nom" name="nom" required>
+            </div>
+            <div>
+                <label for="prenom">Prénom :</label>
+                <input class="border rounded py-2 px-3 text-gray-700" type="prenom" id="prenom" name="prenom" required>
+            </div>
+            <div>
+                <label for="datedenaissance">Date de naissance :</label>
+                <input class="border rounded py-2 px-3 text-gray-700" type="datedenaissance" id="datedenaissance" name="datedenaissance" required>
+            </div>
+            <div>
+                <label for="nomecole">Nom d'école :</label>
+                <input class="border rounded py-2 px-3 text-gray-700" type="nomecole" id="nomecole" name="nomecole" required>
+            </div>
+            <div>
+                <label for="villeecole">Ville d'école :</label>
+                <input class="border rounded py-2 px-3 text-gray-700" type="villeecole" id="villeecole" name="villeecole" required>
+            </div>
+            <div>
+                <label for="annee">Année :</label>
+                <input class="border rounded py-2 px-3 text-gray-700" type="annee" id="annee" name="annee" required>
+            </div>
+            <div>
+                <label for="classe">Classe :</label>
+                <input class="border rounded py-2 px-3 text-gray-700" type="classe" id="classe" name="classe" required>
+            </div>
+            <div>
+                <label for="option">Option :</label>
+                <input class="border rounded py-2 px-3 text-gray-700" type="option" id="option" name="option" required>
+            </div>
+            <div>
+                <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded" type="submit" value="submit">
+                    Valider
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
 
 
 
