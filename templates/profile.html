@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mitsu_projet</title>
+</head>
+<body>
+    <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+        <span class="font-medium text-gray-600 dark:text-gray-300"> {{ nom }} </span>
+    </div>
+
+
+    <div class="flex items-center gap-4">
+        <img class="w-10 h-10 rounded-full" src="/mitsu_projet/img/user.png" alt="">
+        <div class="font-medium dark:text-white">
+            <div>{{ nom }}</div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">Joined in August 2014</div>
+        </div>
+    </div>
+    
+
+    <p class="text-gray-700 font-bold mb-2">
+        Merci beaucoup, {{ nom }} !
+    </p>
+</body>
+</html>

@@ -39,5 +39,11 @@ def submitted():
                            prenom=session['mot'],
                            )
 
+@app.route('/face')
+def face():
+    with open("data.csv", "r", encoding="utf-8") as fichier_csv:
+        data = list(csv.DictReader(fichier_csv, delimiter=";"))      
+    return render_template('face.html', data=data)
+
 if __name__ == '__main__':
 	app.run(debug=True)
