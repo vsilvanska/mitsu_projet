@@ -6,6 +6,13 @@ app = Flask(__name__)
 app.secret_key = b'bahe004cc8de79cc96482b95db2d75473a3aa855b3270350267ccc92bddd46c5'
 
 @app.route('/', methods=['GET', 'POST'])
+@app.route('/face')
+def face():
+    with open("data.csv", "r", encoding="utf-8") as fichier_csv:
+        data = list(csv.DictReader(fichier_csv, delimiter=";"))      
+    return render_template('face.html', data=data)
+
+
 @app.route("/index", methods=['GET', 'POST'])
 def index():         
     if request.method == 'GET':
@@ -39,11 +46,6 @@ def submitted():
                            prenom=session['mot'],
                            )
 
-@app.route('/face')
-def face():
-    with open("data.csv", "r", encoding="utf-8") as fichier_csv:
-        data = list(csv.DictReader(fichier_csv, delimiter=";"))      
-    return render_template('face.html', data=data)
 
 if __name__ == '__main__':
 	app.run(debug=True)
