@@ -6,20 +6,20 @@ app = Flask(__name__)
 app.secret_key = b'bahe004cc8de79cc96482b95db2d75473a3aa855b3270350267ccc92bddd46c5'
 
 @app.route('/', methods=['GET', 'POST'])
-@app.route('/face')
-def face():
+@app.route('/index')
+def index():
     with open("data.csv", "r", encoding="utf-8") as fichier_csv:
         data = list(csv.DictReader(fichier_csv, delimiter=";"))      
-    return render_template('face.html', data=data)
+    return render_template('index.html', data=data)
 
 
-@app.route("/index", methods=['GET', 'POST'])
-def index():         
+@app.route("/reg", methods=['GET', 'POST'])
+def reg():
     if request.method == 'GET':
-        return render_template('index.html')
+        return render_template('reg.html')
     
     elif request.method == 'POST':
-        session['nom'] = request.form['nom']
+        session['name'] = request.form['name']
         session['mot'] = request.form['mot']
 
 
@@ -34,7 +34,7 @@ def index():
 
         with open("data.csv", "a", encoding="utf-8", newline="") as fichier_csv:                      
             writer = csv.writer(fichier_csv, delimiter=';')            
-            line = [new_id, session['nom'], session['mot']]
+            line = [new_id, session['name'], session['mot']]
             writer.writerow(line)
     
         return redirect('/profile')
@@ -42,10 +42,9 @@ def index():
 @app.route('/profile')
 def submitted():
     return render_template('profile.html',
-                           nom=session['nom'],
+                           name=session['name'],
                            prenom=session['mot'],
                            )
-
 
 if __name__ == '__main__':
 	app.run(debug=True)
