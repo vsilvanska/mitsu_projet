@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask import session
+import logging
 import csv
 from email_validator import validate_email, EmailNotValidError
 
@@ -14,6 +15,7 @@ def verif_email(email):
 		print(str(e))
 
 app = Flask(__name__)
+logger = logging.getLogger(__name__)
 app.secret_key = b'bahe004cc8de79cc96482b95db2d75473a3aa855b3270350267ccc92bddd46c5'
 
 @app.route('/', methods=['GET', 'POST'])
