@@ -1,6 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask import session
 import csv
+from email_validator import validate_email, EmailNotValidError
+
+def verif_email(email):
+	try:
+	# validate and get info
+		v = validate_email(email)
+		# replace with normalized form
+		print("True")
+	except EmailNotValidError as e:
+		# email is not valid, exception message is human-readable
+		print(str(e))
 
 app = Flask(__name__)
 app.secret_key = b'bahe004cc8de79cc96482b95db2d75473a3aa855b3270350267ccc92bddd46c5'
@@ -20,6 +31,7 @@ def reg():
     
     elif request.method == 'POST':
         session['name'] = request.form['name']
+        session['email'] = request.form['email']
         session['mot'] = request.form['mot']
 
 
@@ -34,7 +46,7 @@ def reg():
 
         with open("data.csv", "a", encoding="utf-8", newline="") as fichier_csv:                      
             writer = csv.writer(fichier_csv, delimiter=';')            
-            line = [new_id, session['name'], session['mot']]
+            line = [new_id, session['name'], session['email'], session['mot']]
             writer.writerow(line)
     
         return redirect('/profile')
@@ -43,6 +55,7 @@ def reg():
 def submitted():
     return render_template('profile.html',
                            name=session['name'],
+                           email=session['email'],
                            prenom=session['mot'],
                            )
 
