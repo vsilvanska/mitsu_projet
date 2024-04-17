@@ -34,7 +34,7 @@ def reg():
     elif request.method == 'POST':
         session['name'] = request.form['name']
         session['email'] = request.form['email']
-        session['mot'] = request.form['mot']
+        session['password'] = request.form['password']
 
 
         new_id = None
@@ -48,7 +48,7 @@ def reg():
 
         with open("data.csv", "a", encoding="utf-8", newline="") as fichier_csv:                      
             writer = csv.writer(fichier_csv, delimiter=';')            
-            line = [new_id, session['name'], session['email'], session['mot']]
+            line = [new_id, session['name'], session['email'], session['password']]
             writer.writerow(line)
     
         return redirect('/profile')
@@ -58,7 +58,7 @@ def submitted():
     return render_template('profile.html',
                            name=session['name'],
                            email=session['email'],
-                           prenom=session['mot'],
+                           prenom=session['password'],
                            )
 
 if __name__ == '__main__':
