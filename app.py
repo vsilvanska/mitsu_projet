@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask import session
 import logging
 import csv
+import jinja2
 from email_validator import validate_email, EmailNotValidError
 
 def verif_email(email):
@@ -24,6 +25,10 @@ def index():
     with open("data.csv", "r", encoding="utf-8") as fichier_csv:
         data = list(csv.DictReader(fichier_csv, delimiter=";"))      
     return render_template('index.html', data=data)
+
+@app.route("/base")
+def home():
+    return render_template("base.html", title="Mitsuruki")
 
 
 @app.route("/reg", methods=['GET', 'POST'])
