@@ -742,6 +742,10 @@ video {
   margin-top: 1rem;
 }
 
+.mt-auto {
+  margin-top: auto;
+}
+
 .block {
   display: block;
 }
@@ -1015,6 +1019,11 @@ video {
   background-color: rgb(255 255 255 / 0.3);
 }
 
+.object-left {
+  -o-object-position: left;
+     object-position: left;
+}
+
 .p-1 {
   padding: 0.25rem;
 }
@@ -1155,11 +1164,6 @@ video {
 .text-gray-900 {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
-}
-
-.text-pink-300 {
-  --tw-text-opacity: 1;
-  color: rgb(249 168 212 / var(--tw-text-opacity));
 }
 
 .text-white {

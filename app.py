@@ -31,6 +31,8 @@ def home():
     return render_template("base.html", title="Mitsuruki")
 
 
+
+
 @app.route("/reg", methods=['GET', 'POST'])
 def reg():
     if request.method == 'GET':
@@ -59,12 +61,18 @@ def reg():
         return redirect('/profile')
 
 @app.route('/profile')
-def submitted():
+def profile():
     return render_template('profile.html',
                            name=session['name'],
                            email=session['email'],
                            prenom=session['password'],
                            )
+
+
+@app.route("/events")
+def events():
+    return render_template("events.html")
+
 
 if __name__ == '__main__':
 	app.run(debug=True)
