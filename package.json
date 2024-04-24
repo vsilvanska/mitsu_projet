@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "npm": "^10.5.2",
+    "nvm": "^0.0.4",
     "tailwindcss": "^3.4.3"
   }
 }
