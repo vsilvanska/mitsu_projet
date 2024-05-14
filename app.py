@@ -26,13 +26,6 @@ def index():
         data = list(csv.DictReader(fichier_csv, delimiter=";"))      
     return render_template('index.html', data=data)
 
-@app.route("/base")
-def home():
-    return render_template("base.html", title="Mitsuruki")
-
-
-
-
 @app.route("/reg", methods=['GET', 'POST'])
 def reg():
     if request.method == 'GET':
