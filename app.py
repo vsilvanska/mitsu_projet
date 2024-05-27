@@ -58,9 +58,31 @@ def profile():
     return render_template('profile.html')
 
 
-@app.route("/events")
+@app.route("/events", methods=['GET', 'POST'])
 def events():
-    return render_template("events.html")
+    if request.method == 'GET':
+        return render_template("events.html")
+    elif request.method == 'POST':
+        session['title'] = request.form['title']
+        session['description'] = request.form['description']
+        session['date'] = request.form['date']
+
+
+    new_id = None
+
+    with open("data1.csv", "r", encoding="utf-8", newline="") as fichier_csv:
+        data = list(csv.DictReader(fichier_csv, delimiter=";"))
+        if len(data) == 0:
+                new_id = 1
+        elif len(data) > 0:
+            new_id = int(data[-1]['id']) + 1  
+
+    with open("data1.csv", "a", encoding="utf-8", newline="") as fichier_csv:                      
+        writer = csv.writer(fichier_csv, delimiter=';')            
+        line = [new_id, session['title'], session['description'], session['date']]
+        writer.writerow(line)
+
+    return redirect('/events')
 
 
 if __name__ == '__main__':
