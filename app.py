@@ -4,7 +4,6 @@ import logging
 import csv
 import jinja2
 from email_validator import validate_email, EmailNotValidError
-import Datepicker from 'flowbite-datepicker/Datepicker';
 
 
 def verif_email(email):
@@ -16,11 +15,6 @@ def verif_email(email):
 	except EmailNotValidError as e:
 		# email is not valid, exception message is human-readable
 		print(str(e))
-
-const datepickerEl = document.getElementById('datepickerId');
-new Datepicker(datepickerEl, {
-    // options
-}); 
 
 app = Flask(__name__)
 logger = logging.getLogger(__name__)
