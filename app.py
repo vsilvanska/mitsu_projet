@@ -55,11 +55,7 @@ def reg():
 
 @app.route('/profile')
 def profile():
-    return render_template('profile.html',
-                           name=session['name'],
-                           email=session['email'],
-                           prenom=session['password'],
-                           )
+    return render_template('profile.html')
 
 
 @app.route("/events")
