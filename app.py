@@ -69,19 +69,9 @@ def events():
         session['date'] = request.form['date']
         session['time'] = request.form['time']
 
-
-    new_id = None
-
-    with open("data1.csv", "r", encoding="utf-8", newline="") as fichier_csv:
-        data = list(csv.DictReader(fichier_csv, delimiter=";"))
-        if len(data) == 0:
-                new_id = 1
-        elif len(data) > 0:
-            new_id = int(data[-1]['id']) + 1  
-
-    with open("data1.csv", "a", encoding="utf-8", newline="") as fichier_csv:                      
+    with open("data.csv", "a", encoding="utf-8", newline="") as fichier_csv:                      
         writer = csv.writer(fichier_csv, delimiter=';')            
-        line = [new_id, session['title'], session['description'], session['date']]
+        line = [session['title'], session['description'], session['date'], session['time'] ]
         writer.writerow(line)
 
     return redirect('/events')
