@@ -1,0 +1,14 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+    <h1>{% block title %}Project{% endblock %}</h1>
+    <script>
+        setTimeout(function(){
+            window.location.href = "{{redirect}}";
+        }, {{delay}});
+    </script>
+	<h1 class="text-2xl">Form Submitted</h1>
+	<p class="text-gray-700 font-bold mb-2">
+        Thank you for submitting the form {{ title }} {{ date }} !
+    </p>
+{% endblock %}
