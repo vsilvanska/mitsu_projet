@@ -1,26 +1,25 @@
-{% extends 'base1.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %}Project{% endblock %}</h1>
-    <div class="container mx-auto mt-10">
+    <div class="container mx-auto mt-10 pt-9">
         <form method="post">
             <div class="mb-4">
                 <label class="block text-gray-700 font-bold mb-2" for="title">
-                    Prenom
+                    Title
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" name="title" type="text" value="{{ prenom }}">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" name="title" type="text" value="{{ title }}">
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 font-bold mb-2" for="date">
-                    Nom
+                    Date
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" name="date" type="text" value="{{ nom }}">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" name="date" type="datetime-local" value="{{ date }}">
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 font-bold mb-2" for="time">
-                    Time
+                    Description
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="time" name="time" type="time" value="{{ time }}">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="desc" name="desc" type="text" value="{{ desc }}">
             </div>
             <div class="flex items-center justify-between">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" value="submit">

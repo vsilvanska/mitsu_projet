@@ -17,8 +17,9 @@ CREATE TABLE users
 CREATE TABLE events
 (
     events_id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-    date_events DATETIME,
-    description_events VARCHAR
+    title_e VARCHAR,
+    date_e DATETIME,
+    desc_e VARCHAR
 );
 
 CREATE TABLE link_users_events
