@@ -148,7 +148,6 @@ def encode():
 def edit(id):
     if request.method == 'GET':
         line = []
-        print(id)
         db_name = fn_get_db_name()
         data = fn_read_db(db_name)
 
@@ -198,23 +197,28 @@ def edit(id):
 
 @app.route('/delete/<id>', methods=['GET'])
 def delete(id):
-    data = []
-
-    with open("data1.csv", "r", encoding="utf-8", newline="") as fichier_csv:
-        data = list(csv.DictReader(fichier_csv, delimiter=";"))
-
-    # Search for the dictionary that contains the line to be deleted
-    for line in data:
-        if line['id'] == id:
-            # Remove the dictionary from the list
-            data.remove(line)
-
-    # Write the modified list of dictionaries to the CSV file
-    with open('data1.csv', mode='w', newline='') as file:
-        fieldnames = ['id', 'title', 'date', 'desc']
-        writer = csv.DictWriter(file, fieldnames=fieldnames, delimiter=";")
-        writer.writeheader()
-        writer.writerows(data)
+    
+    sqliteConnection = None
+    try:            
+        with sqlite3.connect(db_name, timeout=10) as sqliteConnection:
+            print(f"Connected to the database {db_name}")
+            cursor = sqliteConnection.cursor()
+            try:
+                print(f"DELETE FROM TRAIN WHERE train_id = {train_id};")
+                cursor.execute(f"DELETE FROM TRAIN WHERE train_id = {train_id};")
+                print("SQLite command executed successfully")
+            except sqlite3.Error as error:
+                print(f"Error while executing SQLite command: {error}")
+            finally:
+                cursor.close()
+    except sqlite3.Error as error:
+        print(f"Error while connecting to SQLite: {error}")
+    except Exception as error:
+        print(f"{error}")
+    finally:
+        if sqliteConnection:
+            sqliteConnection.close()
+            print("The SQLite connection is closed")
 
     return redirect('/')
 
