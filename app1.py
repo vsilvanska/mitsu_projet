@@ -41,6 +41,29 @@ def fn_encode_event(db_name, event_list):
             sqliteConnection.close()
             print("The SQLite connection is closed")
 
+def fn_edit_event(db_name, id, event_list):
+    sqliteConnection = None
+    try:            
+        with sqlite3.connect(db_name, timeout=10) as sqliteConnection:
+            print(f"Connected to the database {db_name}")
+            cursor = sqliteConnection.cursor()
+            try:
+                print(f"UPDATE EVENTS SET title_e='{event_list[0]}', date_e='{event_list[1]}', description_e='{event_list[2]}' WHERE events_id='{id}';")
+                cursor.execute(f"UPDATE EVENTS SET title_e='{event_list[0]}', date_e='{event_list[1]}', description_e='{event_list[2]}' WHERE events_id='{id}';")
+                print("SQLite command executed successfully")
+            except sqlite3.Error as error:
+                print(f"Error while executing SQLite script: {error}")
+            finally:
+                cursor.close()
+    except sqlite3.Error as error:
+        print(f"Error while connecting to SQLite: {error}")
+    except Exception as error:
+        print(f"{error}")
+    finally:
+        if sqliteConnection:
+            sqliteConnection.close()
+            print("The SQLite connection is closed")
+
 
 def fn_read_db(db_name):
     sqliteConnection = None
@@ -51,7 +74,6 @@ def fn_read_db(db_name):
             try:
                 cursor.execute(f"SELECT * FROM EVENTS;")
                 data = cursor.fetchall()
-                print("SQLite script executed successfully")
                 print(f'\nExecution du SELECT :')
                 for line in data:
                     print(line)
@@ -64,6 +86,7 @@ def fn_read_db(db_name):
                 for line in data:
                     event = dict(zip(column_names, line))
                     event_list.append(event)
+                print("SQLite script executed successfully")
             except sqlite3.Error as error:
                 print(f"Error while executing SQLite script: {error}")
             finally:
@@ -173,25 +196,11 @@ def edit(id):
         session['title'] = request.form['title']
         session['date'] = request.form['date']
         session['desc'] = request.form['desc']
-        data = []
 
-        with open("data1.csv", "r", encoding="utf-8", newline="") as fichier_csv:
-            data = list(csv.DictReader(fichier_csv, delimiter=";"))
+        event_list = [session['title'], session['date'], session['desc']]
+        db_name = fn_get_db_name()
+        fn_edit_event(db_name, id, event_list)
 
-        # Rechercher une ligne par son ID et modifier son contenu
-        for line in data:
-            if line['id'] == id:
-                line['title'] = session['title']
-                line['date'] = session['date']
-                line['desc'] = session['desc']
-
-        # Réécrire le fichier CSV avec les modifications
-        with open('data1.csv', mode='w', newline='') as file:
-            fieldnames = ['id', 'title', 'date', 'desc']
-            writer = csv.DictWriter(file, fieldnames=fieldnames, delimiter=";")
-            writer.writeheader()
-            writer.writerows(data)
-        
         return redirect('/events')
      
 
