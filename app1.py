@@ -65,6 +65,31 @@ def fn_edit_event(db_name, id, event_list):
             print("The SQLite connection is closed")
 
 
+
+def fn_delete_event_code (db_name, events_id):
+    sqliteConnection = None
+    try:            
+        with sqlite3.connect(db_name, timeout=10) as sqliteConnection:
+            print(f"Connected to the database {db_name}")
+            cursor = sqliteConnection.cursor()
+            try:
+                print(f"DELETE FROM EVENTS WHERE events_id='{id}';")
+                cursor.execute(f"DELETE FROM TRAIN WHERE events_id='{id}';")
+                print("SQLite command executed successfully")
+            except sqlite3.Error as error:
+                print(f"Error while executing SQLite command: {error}")
+            finally:
+                cursor.close()
+    except sqlite3.Error as error:
+        print(f"Error while connecting to SQLite: {error}")
+    except Exception as error:
+        print(f"{error}")
+    finally:
+        if sqliteConnection:
+            sqliteConnection.close()
+            print("The SQLite connection is closed")
+
+
 def fn_read_db(db_name):
     sqliteConnection = None
     try:            
@@ -206,15 +231,15 @@ def edit(id):
 
 @app.route('/delete/<id>', methods=['GET'])
 def delete(id):
-    
-    sqliteConnection = None
-    try:            
+    db_name = fn_get_db_name()
+    try:
         with sqlite3.connect(db_name, timeout=10) as sqliteConnection:
             print(f"Connected to the database {db_name}")
             cursor = sqliteConnection.cursor()
             try:
-                print(f"DELETE FROM TRAIN WHERE train_id = {train_id};")
-                cursor.execute(f"DELETE FROM TRAIN WHERE train_id = {train_id};")
+                print(f"DELETE FROM EVENTS WHERE events_id = {id};")
+                cursor.execute("DELETE FROM EVENTS WHERE events_id = ?", (id,))
+                sqliteConnection.commit()
                 print("SQLite command executed successfully")
             except sqlite3.Error as error:
                 print(f"Error while executing SQLite command: {error}")
@@ -223,14 +248,13 @@ def delete(id):
     except sqlite3.Error as error:
         print(f"Error while connecting to SQLite: {error}")
     except Exception as error:
-        print(f"{error}")
+        print(f"General error: {error}")
     finally:
         if sqliteConnection:
             sqliteConnection.close()
             print("The SQLite connection is closed")
 
-    return redirect('/')
-
+    return redirect('/events')
         
 if __name__ == '__main__':
     app.run(debug=True)
