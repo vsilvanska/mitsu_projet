@@ -25,8 +25,9 @@ def fn_encode_event(db_name, event_list):
             print(f"Connected to the database {db_name}")
             cursor = sqliteConnection.cursor()                                
             try:
-                print(f"Commande SQL exécutée : INSERT INTO EVENTS (title_e, date_e, description_e) VALUES ('{event_list[0]}','{event_list[1]}','{event_list[2]}');")
-                cursor.execute(f"INSERT INTO EVENTS (title_e, date_e, description_e) VALUES ('{event_list[0]}','{event_list[1]}','{event_list[2]}');")
+                print("Commande SQL exécutée : INSERT INTO EVENTS (title_e, date_e, description_e) VALUES (?, ?, ?)")
+                cursor.execute("INSERT INTO EVENTS (title_e, date_e, description_e) VALUES (?, ?, ?)", event_list)
+                sqliteConnection.commit()
                 print("SQLite command executed successfully")
             except sqlite3.Error as error:
                 print(f"Error while executing SQLite script: {error}")

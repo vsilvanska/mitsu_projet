@@ -19,7 +19,7 @@ CREATE TABLE events
     events_id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
     title_e VARCHAR,
     date_e DATETIME,
-    desc_e VARCHAR
+    desc_e NVARCHAR
 );
 
 CREATE TABLE link_users_events
