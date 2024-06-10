@@ -49,8 +49,9 @@ def fn_edit_event(db_name, id, event_list):
             print(f"Connected to the database {db_name}")
             cursor = sqliteConnection.cursor()
             try:
-                print(f"UPDATE EVENTS SET title_e='{event_list[0]}', date_e='{event_list[1]}', description_e='{event_list[2]}' WHERE events_id='{id}';")
-                cursor.execute(f"UPDATE EVENTS SET title_e='{event_list[0]}', date_e='{event_list[1]}', description_e='{event_list[2]}' WHERE events_id='{id}';")
+                print(f"UPDATE EVENTS SET title_e = ?, date_e = ?, description_e = ? WHERE events_id = ?")
+                cursor.execute("UPDATE EVENTS SET title_e = ?, date_e = ?, description_e = ? WHERE events_id = ?", (*event_list, id))
+                sqliteConnection.commit()
                 print("SQLite command executed successfully")
             except sqlite3.Error as error:
                 print(f"Error while executing SQLite script: {error}")
@@ -67,15 +68,17 @@ def fn_edit_event(db_name, id, event_list):
 
 
 
-def fn_delete_event_code (db_name, events_id):
+
+def fn_delete_event_code(db_name, events_id):
     sqliteConnection = None
     try:            
         with sqlite3.connect(db_name, timeout=10) as sqliteConnection:
             print(f"Connected to the database {db_name}")
             cursor = sqliteConnection.cursor()
             try:
-                print(f"DELETE FROM EVENTS WHERE events_id='{id}';")
-                cursor.execute(f"DELETE FROM TRAIN WHERE events_id='{id}';")
+                print(f"DELETE FROM EVENTS WHERE events_id = ?;")
+                cursor.execute("DELETE FROM EVENTS WHERE events_id = ?", (events_id,))
+                sqliteConnection.commit()
                 print("SQLite command executed successfully")
             except sqlite3.Error as error:
                 print(f"Error while executing SQLite command: {error}")
@@ -89,6 +92,7 @@ def fn_delete_event_code (db_name, events_id):
         if sqliteConnection:
             sqliteConnection.close()
             print("The SQLite connection is closed")
+
 
 
 def fn_read_db(db_name):
