@@ -139,9 +139,7 @@ app.secret_key = b'bahe004cc8de79cc96482b95db2d75473a3aa855b3270350267ccc92bddd4
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index')
 def index():
-    with open("data1.csv", "r", encoding="utf-8") as fichier_csv:
-        data = list(csv.DictReader(fichier_csv, delimiter=";"))
-    return render_template('index.html', data=data)
+    return render_template('index.html')
 
 @app.route("/reg", methods=['GET', 'POST'])
 def reg():
